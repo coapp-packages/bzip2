@@ -1,0 +1,29 @@
+#product-info
+{
+	product-name: "bzip2";
+	version: "1.0.6";
+	original-source-location: "http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz";
+	original-source-website: "http://www.bzip.org/";
+	license: "BSD-style (custom, see LICENSE)";
+	packager: "Philip Allison <mangobrain@googlemail.com>";
+}
+
+x86
+{
+	targets:
+	{
+		"bzip2.exe",
+		"bzip2recover.exe",
+		"libbz2.lib"
+	};
+
+	build-command:
+	@"
+		nmake -f makefile.msc
+	";
+
+	clean-command:
+	@"
+		nmake -f makefile.msc clean
+	";
+}
