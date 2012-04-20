@@ -20,11 +20,17 @@ x86
 
 	build-command:
 	@"
-		nmake -f makefile.msc
+		nmake -f makefile.msc || goto failed
 	";
 
 	clean-command:
 	@"
 		nmake -f makefile.msc clean
 	";
+}
+
+test
+{
+	uses: x86;
+	/* Tests are run as part of nmake all in 'x86'. */
 }
