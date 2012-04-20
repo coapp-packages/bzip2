@@ -1,3 +1,5 @@
+@import "version.inc";
+
 #product-info
 {
 	product-name: "bzip2";
@@ -33,4 +35,25 @@ test
 {
 	uses: x86;
 	/* Tests are run as part of nmake all in 'x86'. */
+}
+
+package
+{
+	uses: x86;
+
+	targets:
+	{
+        @"COPKG\libbz2[vc10]-${package-version}-x86.msi",
+        @"COPKG\libbz2-dev[vc10]-${package-version}-x86.msi",
+        @"COPKG\libbz2-dev-common-${package-version}-any.msi",
+        @"COPKG\bzip2-${package-version}-x86.msi",
+	};
+
+	build-command: @"
+		cd COPKG
+		autopackage libbz2.autopkg libbz2-dev-common.autopkg|| goto failed
+        autopackage bzip2.autopkg libbz2-dev.autopkg || goto failed
+	";
+
+	clean-command: @"del COPKG\*.msi COPKG\*.wixpdb";
 }
