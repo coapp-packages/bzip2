@@ -1,0 +1,68 @@
+@import "version.inc";
+@import "compat.inc" ;
+@import "outercurve.inc";
+
+#define { 
+    flavor: "${comp??vc10}"; 
+    arch : "${plat??x86}";
+}
+
+package {
+    name: "libbz2[${flavor}]";
+    version: "${package-version}";
+    arch : "${arch}";
+
+    display-name: "BZip2 Library";
+    location: "<a href='http://coapp.org/repository/${OutputFilename}'>http://coapp.org/repository/${OutputFilename}</a>";
+
+    feed: "<a href='http://coapp.org/repository/packages.atom.xml'>http://coapp.org/repository/packages.atom.xml</a>";
+    publisher: "CoApp Project";
+}
+
+license[bzip] {
+    license-type: "BSD-like";
+	license-url: "http://github.com/coapp-packages/bzip2/blob/master/LICENSE";
+	license: @"..\LICENSE";
+}
+
+metadata {  
+    summary: "BZip2 Compression Library"; // or a more user-friendly name
+    description: @"A library for compressing and decompressing data in the bzip2 format.";
+    author-version : "1.0.6"; // may contain alphanumeric characters, not limited to 4-part version
+    bug-tracker: "<a href='https://github.com/coapp-packages/bzip2/issues'>https://github.com/coapp-packages/bzip2/issues</a>";
+    stability : "0"; // -100 to 100, 0 is considered "normal"/stable, higher is more stable
+    licenses : {
+        bzip
+    };
+}
+
+signing {
+    attributes : {
+        company="Outercurve Foundation",
+        description="BZip2 Compression Library",
+        product-name="bzip2",
+        product-version="${package-version}",
+        file-version="${package-version}",
+    };
+
+    replace-signature: true; 
+    include: { 
+        dlls
+    };    
+}
+
+assembly[libbz2[${flavor}]] {
+    include : {
+        dlls
+    };
+}
+
+files[dlls] {
+    root: @"..";
+
+    include: {
+        "libbz2.dll",
+    };
+
+    trim-path: all;
+};
