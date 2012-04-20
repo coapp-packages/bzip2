@@ -8,11 +8,11 @@
 }
 
 package {
-    name: "libbz2[${flavor}]";
+    name: "bzip2";
     version: "${package-version}";
     arch : "${arch}";
 
-    display-name: "BZip2 Library";
+    display-name: "BZip2";
     location: "http://coapp.org/repository/${OutputFilename}";
 
     feed: "http://coapp.org/repository/packages.atom.xml";
@@ -25,9 +25,13 @@ license[bzip] {
 	license: @"..\LICENSE";
 }
 
+requires {
+    package: "libbz2[${flavor}]-${package-version}-${Package.PublicKeyToken}";
+}
+
 metadata {  
-    summary: "BZip2 Compression Library"; // or a more user-friendly name
-    description: @"A library for compressing and decompressing data in the bzip2 format.";
+    summary: "BZip2 Compression Program"; // or a more user-friendly name
+    description: @"A command, bzip2.exe, for compressing and decompressing data in the bzip2 format.";
     author-version : "${author-version}"; // may contain alphanumeric characters, not limited to 4-part version
     bug-tracker: "https://github.com/coapp-packages/bzip2/issues";
     stability : "0"; // -100 to 100, 0 is considered "normal"/stable, higher is more stable
@@ -39,7 +43,7 @@ metadata {
 signing {
     attributes : {
         company="Outercurve Foundation",
-        description="BZip2 Compression Library",
+        description="BZip2 Compression Program",
         product-name="bzip2",
         product-version="${package-version}",
         file-version="${package-version}",
@@ -47,21 +51,40 @@ signing {
 
     replace-signature: true; 
     include: { 
-        dlls
+        exes
     };    
 }
 
-assembly[libbz2[${flavor}]] {
-    include : {
-        dlls
+manifest[bzip] {
+    // The 'assembly' section lists all items in SxS which need to be referenced.
+    assembly : {
+        "libbz2[${flavor}]"
+    };
+
+    // The 'include' section lists files (or sets of files) which will need to
+    //  reference the above assemblies.
+    include : { 
+        exes,
     };
 }
 
-files[dlls] {
+application {
+    include : {
+        exes,
+    };
+}
+
+package-composition {
+    symlinks : { 
+        exes => @"${bin}\${each.Name}" = @"${packagedir}\${each.Name}";
+    };
+}
+
+files[exes] {
     root: @"..";
 
     include: {
-        "libbz2.dll",
+        "bzip2.exe",
     };
 
     trim-path: all;
