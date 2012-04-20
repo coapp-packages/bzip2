@@ -14,7 +14,8 @@ x86
 	{
 		"bzip2.exe",
 		"bzip2recover.exe",
-		"libbz2.lib"
+		"libbz2.lib",
+		"libbz2.dll"
 	};
 
 	build-command:
