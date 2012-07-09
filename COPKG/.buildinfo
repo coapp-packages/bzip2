@@ -1,28 +1,45 @@
 @import "version.inc";
 
+#define {
+    NewVersion : "${package-version++}";
+};
+
 #product-info
 {
 	product-name: "bzip2";
-	version: "1.0.6";
+    version: "${NewVersion}";
 	original-source-location: "http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz";
 	original-source-website: "http://www.bzip.org/";
 	license: "BSD-style (custom, see LICENSE)";
 	packager: "Philip Allison <mangobrain@googlemail.com>";
 }
 
-x86
+base
 {
+    set: {
+        COMP="${COMP??vc10}";
+        PLAT="${PLAT??x86}";
+    };
+    compiler: "${COMP}";
+    platform: "${PLAT}";
+
 	targets:
 	{
-		"bzip2.exe",
-		"bzip2recover.exe",
-		"libbz2.lib",
-		"libbz2.dll"
+		"output\${COMP}\${PLAT}\bzip2.exe",
+		"output\${COMP}\${PLAT}\bzip2recover.exe",
+		"output\${COMP}\${PLAT}\libbz2.lib",
+		"output\${COMP}\${PLAT}\libbz2.dll"
 	};
 
 	build-command:
 	@"
 		nmake -f makefile.msc || goto failed
+
+        mkdir output\${COMP}\${PLAT}
+        copy /y bzip2.exe output\${COMP}\${PLAT}\
+        copy /y bzip2recover.exe output\${COMP}\${PLAT}\
+        copy /y libbz2.dll output\${COMP}\${PLAT}\
+        copy /y libbz2.lib output\${COMP}\${PLAT}\
 	";
 
 	clean-command:
@@ -31,29 +48,68 @@ x86
 	";
 }
 
+release {
+    set: {
+        COMP="${COMP??vc10}";
+        PLAT="${PLAT??x86, x64}";
+    };
+    
+	build-command:@"
+        if ""${BUILT}"" equ ""true"" goto skiprelease
+        for %%A in (${COMP}) do (
+            for %%B in (${PLAT}) do (
+                ptk --nologo base --COMP=%%A --PLAT=%%B || goto failed
+                ptk --nologo clean base --COMP=%%A --PLAT=%%B || goto failed
+            )
+        )
+:skiprelease
+    ";
+}
+
 test
 {
-	uses: x86;
+	uses: release;
 	/* Tests are run as part of nmake all in 'x86'. */
 }
 
 package
 {
-	uses: x86;
+    set: {
+        COMP="${COMP??vc10}";
+        PLAT="${PLAT??x86, x64}";
+    };
+	uses: {
+        update-version,
+        release,
+    };
 
 	targets:
 	{
-        @"COPKG\libbz2[vc10]-${package-version}-x86.msi",
-        @"COPKG\libbz2-dev[vc10]-${package-version}-x86.msi",
-        @"COPKG\libbz2-dev-common-${package-version}-any.msi",
-        @"COPKG\bzip2-${package-version}-x86.msi",
+        (COMP,PLAT) => @"copkg\libbz2-dev[${0}]-${NewVersion}-${1}.msi",
 	};
 
 	build-command: @"
 		cd COPKG
-		autopackage libbz2.autopkg libbz2-dev-common.autopkg|| goto failed
-        autopackage bzip2.autopkg libbz2-dev.autopkg || goto failed
+		autopackage libbz2-dev-common.autopkg|| goto failed
+        for %%A in (${COMP}) do (
+            for %%B in (${PLAT}) do (
+                autopackage --comp=%%A --plat=%%B libbz2.autopkg bzip2.autopkg libbz2-dev.autopkg || goto failed
+            )
+        )
 	";
 
 	clean-command: @"del COPKG\*.msi COPKG\*.wixpdb";
+}
+
+update-version {
+    build-command : @"
+        REM auto-increment version.inc file...
+        if ""${noversion}"" == ""true"" goto :endver
+        pushd COPKG
+        setlocal EnableDelayedExpansion
+        set VERSTRING=#define { package-version: ${NewVersion}; }
+        echo !VERSTRING! > version.inc
+        popd
+        :endver
+    ";
 }

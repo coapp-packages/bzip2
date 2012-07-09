@@ -1,5 +1,5 @@
 @import "version.inc";
-@import "compat.inc" ;
+@import "bzip2.inc" ;
 @import "outercurve.inc";
 
 package {

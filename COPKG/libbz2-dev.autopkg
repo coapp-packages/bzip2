@@ -1,5 +1,5 @@
 @import "version.inc";
-@import "compat.inc" ;
+@import "bzip2.inc" ;
 @import "outercurve.inc";
 
 #define { 
@@ -48,7 +48,7 @@ developer-library[libbz2[${flavor}]] {
 }
 
 files[libs] {
-    root: @"..";
+    root: @"..\output\${flavor}\${arch}";
 
     include: {
         "libbz2.lib",
