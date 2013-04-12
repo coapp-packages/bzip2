@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project InitialTargets="Info" DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{63BED288-E8C3-4345-B84D-2E64598DCF3A}</ProjectGuid>
+    <RootNamespace>$(LibName)</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="ConfigurationSettings">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CallingConvention>cdecl</CallingConvention>
+    <LibName>libbz2</LibName>
+  </PropertyGroup>
+  <Target Name="Info" BeforeTargets="Build">
+    <Message Text="  Configuration     :  '$(Configuration)'" />
+    <Message Text="  PlatformToolset   :  '$(PlatformToolset)'" />
+    <Message Text="  Platform          :  '$(Platform)'" />
+    <Message Text="  ConfigurationType :  '$(ConfigurationType)'" />
+    <Message Text="  CallingConvention :  '$(CallingConvention)'" />
+  </Target>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='cdecl|DynamicLibrary'">
+    <OutName>$(LibName)</OutName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='cdecl|StaticLibrary'">
+    <OutName>$(LibName)-static</OutName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='cdecl|ltcg'">
+    <OutName>$(LibName)-static-ltcg</OutName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|DynamicLibrary'">
+    <OutName>$(LibName)-stdcall</OutName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|StaticLibrary'">
+    <OutName>$(LibName)-static-stdcall</OutName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|ltcg'">
+    <OutName>$(LibName)-static-stdcall-ltcg</OutName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>..\Output\$(PlatformToolset)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(PlatformToolset)\$(Platform)\$(Configuration)\$(ConfigurationType)\$(CallingConvention)\</IntDir>
+    <OutBinDir>$(OutDir)bin\</OutBinDir>
+    <OutLibDir>$(OutDir)lib\</OutLibDir>
+    <TargetName>lib\$(OutName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>_FILE_OFFSET_BITS=64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <!--
+      <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(CallingConvention)'=='stdcall'">ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(ConfigurationType)'=='DynamicLibrary'">ZLIB_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      -->
+      <CallingConvention>%(CallingConvention)</CallingConvention>
+      <RuntimeLibrary Condition="'$(Configuration)|$(ConfigurationType)'=='Debug|DynamicLibrary'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)|$(ConfigurationType)'=='Debug|StaticLibrary'">MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)|$(ConfigurationType)'=='Release|DynamicLibrary'">MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)|$(ConfigurationType)'=='Release|StaticLibrary'">MultiThreaded</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <!-- <SDLCheck>true</SDLCheck> -->
+      <ConfigurationType Condition="'%(ConfigurationType)'!='ltcg'">%(ConfigurationType)</ConfigurationType>
+      <ConfigurationType Condition="'%(ConfigurationType)'=='ltcg'">StaticLibrary</ConfigurationType>
+    </ClCompile>
+    <Link>
+      <CallingConvention>%(CallingConvention)</CallingConvention>
+      <AdditionalOptions Condition="'$(ConfigurationType)'=='ltcg'">/LTCG %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>$(OutBinDir)$(OutName).dll</OutputFile>
+      <ProgramDatabaseFile>$(OutBinDir)$(OutName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(OutLibDir)$(OutName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(OutBinDir)$(OutName).pgd</ProfileGuidedDatabase>
+      <ModuleDefinitionFile>..\libbz2.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:X86 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:X64 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <!-- <EnableCOMDATFolding>true</EnableCOMDATFolding> -->
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\blocksort.c" />
+    <ClCompile Include="..\compress.c" />
+    <ClCompile Include="..\crctable.c" />
+    <ClCompile Include="..\decompress.c" />
+    <ClCompile Include="..\huffman.c" />
+    <ClCompile Include="..\bzlib.c" />
+    <ClCompile Include="..\randtable.c" />
+    <ClCompile Include="..\bzip2.c" >
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\bzip2recover.c" >
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\dlltest.c" >
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\mk251.c" >
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\spewG.c" >
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\unzcrash.c" >
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\bzlib.h" />
+    <ClInclude Include="..\bzlib_private.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
