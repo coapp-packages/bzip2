@@ -26,7 +26,7 @@
   <PropertyGroup Label="ConfigurationSettings">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v110</PlatformToolset>
-    <CallingConvention>cdecl</CallingConvention>
+    <CallingConvention>Cdecl</CallingConvention>
     <LibName>libbz2</LibName>
   </PropertyGroup>
   <Target Name="Info" BeforeTargets="Build">
@@ -50,13 +50,13 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='cdecl|DynamicLibrary'">
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|DynamicLibrary'">
     <OutName>$(LibName)</OutName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='cdecl|StaticLibrary'">
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|StaticLibrary'">
     <OutName>$(LibName)-static</OutName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='cdecl|ltcg'">
+  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|ltcg'">
     <OutName>$(LibName)-static-ltcg</OutName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|DynamicLibrary'">
@@ -70,7 +70,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>..\Output\$(PlatformToolset)\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(PlatformToolset)\$(Platform)\$(Configuration)\$(ConfigurationType)\$(CallingConvention)\</IntDir>
+    <IntDir>.\$(PlatformToolset)\$(Platform)\$(Configuration)\$(ConfigurationType)\$(CallingConvention)\</IntDir>
     <OutBinDir>$(OutDir)bin\</OutBinDir>
     <OutLibDir>$(OutDir)lib\</OutLibDir>
     <TargetName>lib\$(OutName)</TargetName>
@@ -80,9 +80,9 @@
       <PreprocessorDefinitions>_FILE_OFFSET_BITS=64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <!--
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(CallingConvention)'=='stdcall'">ZLIB_WINAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(ConfigurationType)'=='DynamicLibrary'">ZLIB_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       -->
+      <PreprocessorDefinitions Condition="'$(CallingConvention)'=='stdcall'">BZ_WAPI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CallingConvention>%(CallingConvention)</CallingConvention>
       <RuntimeLibrary Condition="'$(Configuration)|$(ConfigurationType)'=='Debug|DynamicLibrary'">MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeLibrary Condition="'$(Configuration)|$(ConfigurationType)'=='Debug|StaticLibrary'">MultiThreadedDebug</RuntimeLibrary>
@@ -94,7 +94,6 @@
       <ConfigurationType Condition="'%(ConfigurationType)'=='ltcg'">StaticLibrary</ConfigurationType>
     </ClCompile>
     <Link>
-      <CallingConvention>%(CallingConvention)</CallingConvention>
       <AdditionalOptions Condition="'$(ConfigurationType)'=='ltcg'">/LTCG %(AdditionalOptions)</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutBinDir)$(OutName).dll</OutputFile>

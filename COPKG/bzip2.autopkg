@@ -1,91 +1,220 @@
-@import "version.inc";
-@import "compat.inc" ;
-@import "outercurve.inc";
+@import @"version.inc";
 
-#define { 
-    flavor: "${comp??vc10}"; 
-    arch : "${plat??x86}";
-}
-
-package {
-    name: "bzip2";
-    version: "${package-version}";
-    arch : "${arch}";
-
-    display-name: "BZip2";
-    location: "http://coapp.org/repository/${OutputFilename}";
-
-    feed: "http://coapp.org/repository/packages.atom.xml";
-    publisher: "CoApp Project";
-}
-
-license[bzip] {
-    license-type: "BSD-like";
-	license-url: "http://github.com/coapp-packages/bzip2/blob/master/LICENSE";
-	license: @"..\LICENSE";
-}
-
-requires {
-    package: "libbz2[${flavor}]-${package-version}-${Package.Architecture}-${Package.PublicKeyToken}";
-}
-
-metadata {  
-    summary: "BZip2 Compression Program"; // or a more user-friendly name
-    description: @"A command, bzip2.exe, for compressing and decompressing data in the bzip2 format.";
-    author-version : "${author-version}"; // may contain alphanumeric characters, not limited to 4-part version
-    bug-tracker: "https://github.com/coapp-packages/bzip2/issues";
-    stability : "0"; // -100 to 100, 0 is considered "normal"/stable, higher is more stable
-    licenses : {
-        bzip
-    };
-}
-
-signing {
-    attributes : {
-        company="Outercurve Foundation",
-        description="BZip2 Compression Program",
-        product-name="bzip2",
-        product-version="${package-version}",
-        file-version="${package-version}",
-    };
-
-    replace-signature: true; 
-    include: { 
-        exes
-    };    
-}
-
-manifest[bzip] {
-    // The 'assembly' section lists all items in SxS which need to be referenced.
-    assembly : {
-        "libbz2[${flavor}]"
-    };
-
-    // The 'include' section lists files (or sets of files) which will need to
-    //  reference the above assemblies.
-    include : { 
-        exes,
-    };
-}
-
-application {
-    include : {
-        exes,
-    };
-}
-
-package-composition {
-    symlinks : { 
-        exes => @"${bin}\${each.Name}" = @"${packagedir}\${each.Name}";
-    };
-}
-
-files[exes] {
-    root: @"..";
-
-    include: {
-        "bzip2.exe",
-    };
-
-    trim-path: all;
+configurations {
+		
 };
+
+nuget {
+	// the nuspec file metadata. Gets created/updated on build
+	nuspec {
+		id = bzip2;
+		version : ${package-version};
+		title: BZip2 Compression Library;
+		authors: {Julian Seward, Tim Rogers};
+		owners: {CoApp Project, Garrett Serack};
+		licenseUrl: "https://raw.github.com/coapp-packages/bzip2/master/LICENSE";
+		projectUrl: "http://github.com/coapp-packages/bzip2";
+		iconUrl: "http://www.bzip.org/images/bzip2-logo.png";
+		requireLicenseAcceptance:false;
+		summary:BZip2 Compression Library;
+		description: @"A library for compressing and decompressing data in the bzip2 format.
+	BZip homepage:  http://www.bzip.org";
+		releaseNotes: "Release of bzip2 1.0.6 libraries.";
+		copyright: Copyright 2013;
+		tags: { bzip2, libbz2, native, CoApp };
+
+	};
+
+	// the files that go into the content folders
+	// (inserted into the nuspec file)
+	files {
+		include: { ..\bzlib.h };
+
+		docs: { 
+            ..\manual.html,
+            ..\manual.pdf,
+            ..\manual.xml,
+        };
+    
+		[Win32,v110,dynamic,cdecl,debug] { 
+			lib: { ..\output\v110\win32\debug\lib\libbz2.lib };
+			bin: { ..\output\v110\win32\debug\bin\libbz2.dll };
+            symbols += { ..\output\v110\win32\debug\bin\libbz2.pdb };
+		}
+
+		[x64,v110,dynamic,cdecl,debug] {
+			lib: { ..\output\v110\x64\debug\lib\libbz2.lib };
+			bin: { ..\output\v110\x64\debug\bin\libbz2.dll };
+            symbols += { ..\output\v110\x64\debug\bin\libbz2.pdb };
+		}
+		
+		[Win32,v110,static,cdecl,debug] {
+			lib: { ..\output\v110\win32\debug\lib\libbz2-static.lib };
+		}
+
+		[x64,v110,static,cdecl,debug] {
+			lib: { ..\output\v110\x64\debug\lib\libbz2-static.lib };
+		}
+
+		[Win32,v110,static,stdcall,debug] {
+			lib: { ..\output\v110\win32\debug\lib\libbz2-static-stdcall.lib };
+		}
+
+		[x64,v110,static,stdcall,debug] {
+			lib: { ..\output\v110\x64\debug\lib\libbz2-static-stdcall.lib };
+		}
+
+		[Win32,v110,dynamic,stdcall,debug] {
+			lib: { ..\output\v110\win32\debug\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v110\win32\debug\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v110\win32\debug\bin\libbz2-stdcall.pdb };
+		}
+
+		[x64,v110,dynamic,stdcall,debug] {
+			lib: { ..\output\v110\x64\debug\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v110\x64\debug\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v110\x64\debug\bin\libbz2-stdcall.pdb };
+		}
+
+		[Win32,v100,dynamic,cdecl,debug] { 
+			lib: { ..\output\v100\win32\debug\lib\libbz2.lib };
+			bin: { ..\output\v100\win32\debug\bin\libbz2.dll };
+            symbols += { ..\output\v100\win32\debug\bin\libbz2.pdb };
+		}
+
+		[x64,v100,dynamic,cdecl,debug] {
+			lib: { ..\output\v100\x64\debug\lib\libbz2.lib };
+			bin: { ..\output\v100\x64\debug\bin\libbz2.dll };
+            symbols += { ..\output\v100\x64\debug\bin\libbz2.pdb };
+		}
+		
+		[Win32,v100,static,cdecl,debug] {
+			lib: { ..\output\v100\win32\debug\lib\libbz2-static.lib };
+		}
+
+		[x64,v100,static,cdecl,debug] {
+			lib: { ..\output\v100\x64\debug\lib\libbz2-static.lib };
+		}
+
+		[Win32,v100,static,stdcall,debug] {
+			lib: { ..\output\v100\win32\debug\lib\libbz2-static-stdcall.lib };
+		}
+
+		[x64,v100,static,stdcall,debug] {
+			lib: { ..\output\v100\x64\debug\lib\libbz2-static-stdcall.lib };
+		}
+
+		[Win32,v100,dynamic,stdcall,debug] {
+			lib: { ..\output\v100\win32\debug\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v100\win32\debug\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v100\win32\debug\bin\libbz2-stdcall.pdb };
+		}
+
+		[x64,v100,dynamic,stdcall,debug] {
+			lib: { ..\output\v100\x64\debug\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v100\x64\debug\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v100\x64\debug\bin\libbz2-stdcall.pdb };
+		}
+
+		[Win32,v110,dynamic,cdecl,release] { 
+			lib: { ..\output\v110\win32\release\lib\libbz2.lib };
+			bin: { ..\output\v110\win32\release\bin\libbz2.dll };
+            symbols += { ..\output\v110\win32\release\bin\libbz2.pdb };
+		}
+
+		[x64,v110,dynamic,cdecl,release] {
+			lib: { ..\output\v110\x64\release\lib\libbz2.lib };
+			bin: { ..\output\v110\x64\release\bin\libbz2.dll };
+            symbols += { ..\output\v110\x64\release\bin\libbz2.pdb };
+		}
+		
+		[Win32,v110,static,cdecl,release] {
+			lib: { ..\output\v110\win32\release\lib\libbz2-static.lib };
+		}
+
+		[x64,v110,static,cdecl,release] {
+			lib: { ..\output\v110\x64\release\lib\libbz2-static.lib };
+		}
+
+		[Win32,v110,static,stdcall,release] {
+			lib: { ..\output\v110\win32\release\lib\libbz2-static-stdcall.lib };
+		}
+
+		[x64,v110,static,stdcall,release] {
+			lib: { ..\output\v110\x64\release\lib\libbz2-static-stdcall.lib };
+		}
+
+		[Win32,v110,dynamic,stdcall,release] {
+			lib: { ..\output\v110\win32\release\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v110\win32\release\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v110\win32\release\bin\libbz2-stdcall.pdb };
+		}
+
+		[x64,v110,dynamic,stdcall,release] {
+			lib: { ..\output\v110\x64\release\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v110\x64\release\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v110\x64\release\bin\libbz2-stdcall.pdb };
+		}
+
+		[Win32,v100,dynamic,cdecl,release] { 
+			lib: { ..\output\v100\win32\release\lib\libbz2.lib };
+			bin: { ..\output\v100\win32\release\bin\libbz2.dll };
+            symbols += { ..\output\v100\win32\release\bin\libbz2.pdb };
+		}
+
+		[x64,v100,dynamic,cdecl,release] {
+			lib: { ..\output\v100\x64\release\lib\libbz2.lib };
+			bin: { ..\output\v100\x64\release\bin\libbz2.dll };
+            symbols += { ..\output\v100\x64\release\bin\libbz2.pdb };
+		}
+		
+		[Win32,v100,static,cdecl,release] {
+			lib: { ..\output\v100\win32\release\lib\libbz2-static.lib };
+		}
+
+		[x64,v100,static,cdecl,release] {
+			lib: { ..\output\v100\x64\release\lib\libbz2-static.lib };
+		}
+
+		[Win32,v100,static,stdcall,release] {
+			lib: { ..\output\v100\win32\release\lib\libbz2-static-stdcall.lib };
+		}
+
+		[x64,v100,static,stdcall,release] {
+			lib: { ..\output\v100\x64\release\lib\libbz2-static-stdcall.lib };
+		}
+
+		[Win32,v100,dynamic,stdcall,release] {
+			lib: { ..\output\v100\win32\release\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v100\win32\release\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v100\win32\release\bin\libbz2-stdcall.pdb };
+		}
+
+		[x64,v100,dynamic,stdcall,release] {
+			lib: { ..\output\v100\x64\release\lib\libbz2-stdcall.lib };
+			bin: { ..\output\v100\x64\release\bin\libbz2-stdcall.dll };
+            symbols += { ..\output\v100\x64\release\bin\libbz2-stdcall.pdb };
+		}
+
+
+	};
+
+	// the VC++ .props file that gets generated and inserted into the ${d_content} folder
+	props { 
+		// we're going to generate a number of properties anyway. 
+        // so even if the packager doesn't specify the props object 
+        // we're going to make this file.
+	};
+
+	// the VC++ .targets file that gets generated and inserted into the ${d_content} folder
+	targets {
+		// every configuration needs to reference the include directories.
+		Defines += HAS_BZ2;
+		[dynamic]
+			Defines += BZ_IMPORT;
+		[stdcall]
+			Defines += BZ_WAPI;
+			
+	};
+}
+
