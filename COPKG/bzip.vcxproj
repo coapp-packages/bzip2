@@ -50,27 +50,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|DynamicLibrary'">
-    <OutName>$(LibName)</OutName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|StaticLibrary'">
-    <OutName>$(LibName)-static</OutName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|ltcg'">
-    <OutName>$(LibName)-static-ltcg</OutName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|DynamicLibrary'">
-    <OutName>$(LibName)-stdcall</OutName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|StaticLibrary'">
-    <OutName>$(LibName)-static-stdcall</OutName>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|ltcg'">
-    <OutName>$(LibName)-static-stdcall-ltcg</OutName>
-  </PropertyGroup>
   <PropertyGroup>
-    <OutDir>..\Output\$(PlatformToolset)\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>.\$(PlatformToolset)\$(Platform)\$(Configuration)\$(ConfigurationType)\$(CallingConvention)\</IntDir>
+    <OutNameSuffix Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|DynamicLibrary'"></OutNameSuffix>
+    <OutNameSuffix Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|StaticLibrary'">-static</OutNameSuffix>
+    <OutNameSuffix Condition="'$(CallingConvention)|$(ConfigurationType)'=='Cdecl|ltcg'">-static-ltcg</OutNameSuffix>
+    <OutNameSuffix Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|DynamicLibrary'">-stdcall</OutNameSuffix>
+    <OutNameSuffix Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|StaticLibrary'">-static-stdcall</OutNameSuffix>
+    <OutNameSuffix Condition="'$(CallingConvention)|$(ConfigurationType)'=='stdcall|ltcg'">-static-stdcall-ltcg</OutNameSuffix>
+    <OutName>$(LibName)$(OutNameSuffix)</OutName>
+    <ProjectRootDir Condition="'$(SolutionDir)' != ''">$(SolutionDir)</ProjectRootDir> 
+    <ProjectRootDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)..\</ProjectRootDir> 
+    <OutDir>$(ProjectRootDir)Output\$(PlatformToolset)\$(Platform)\$(Configuration)\$(ConfigurationType)\$(CallingConvention)\</OutDir> 
+    <IntDir>$(ProjectRootDir)Intermediate\$(PlatformToolset)\$(Platform)\$(Configuration)\$(ConfigurationType)\$(CallingConvention)\</IntDir>
     <OutBinDir>$(OutDir)bin\</OutBinDir>
     <OutLibDir>$(OutDir)lib\</OutLibDir>
     <TargetName>lib\$(OutName)</TargetName>

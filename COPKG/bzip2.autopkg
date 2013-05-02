@@ -37,163 +37,163 @@ nuget {
         };
     
 		[Win32,v110,dynamic,cdecl,debug] { 
-			lib: { ..\output\v110\win32\debug\lib\libbz2.lib };
-			bin: { ..\output\v110\win32\debug\bin\libbz2.dll };
-            symbols += { ..\output\v110\win32\debug\bin\libbz2.pdb };
+			lib: { .\output\v110\win32\debug\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v110\win32\debug\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v110\win32\debug\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 
 		[x64,v110,dynamic,cdecl,debug] {
-			lib: { ..\output\v110\x64\debug\lib\libbz2.lib };
-			bin: { ..\output\v110\x64\debug\bin\libbz2.dll };
-            symbols += { ..\output\v110\x64\debug\bin\libbz2.pdb };
+			lib: { .\output\v110\x64\debug\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v110\x64\debug\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v110\x64\debug\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 		
 		[Win32,v110,static,cdecl,debug] {
-			lib: { ..\output\v110\win32\debug\lib\libbz2-static.lib };
+			lib: { .\output\v110\win32\debug\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[x64,v110,static,cdecl,debug] {
-			lib: { ..\output\v110\x64\debug\lib\libbz2-static.lib };
+			lib: { .\output\v110\x64\debug\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[Win32,v110,static,stdcall,debug] {
-			lib: { ..\output\v110\win32\debug\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v110\win32\debug\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[x64,v110,static,stdcall,debug] {
-			lib: { ..\output\v110\x64\debug\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v110\x64\debug\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[Win32,v110,dynamic,stdcall,debug] {
-			lib: { ..\output\v110\win32\debug\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v110\win32\debug\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v110\win32\debug\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v110\win32\debug\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v110\win32\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v110\win32\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 		[x64,v110,dynamic,stdcall,debug] {
-			lib: { ..\output\v110\x64\debug\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v110\x64\debug\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v110\x64\debug\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v110\x64\debug\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v110\x64\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v110\x64\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 		[Win32,v100,dynamic,cdecl,debug] { 
-			lib: { ..\output\v100\win32\debug\lib\libbz2.lib };
-			bin: { ..\output\v100\win32\debug\bin\libbz2.dll };
-            symbols += { ..\output\v100\win32\debug\bin\libbz2.pdb };
+			lib: { .\output\v100\win32\debug\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v100\win32\debug\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v100\win32\debug\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 
 		[x64,v100,dynamic,cdecl,debug] {
-			lib: { ..\output\v100\x64\debug\lib\libbz2.lib };
-			bin: { ..\output\v100\x64\debug\bin\libbz2.dll };
-            symbols += { ..\output\v100\x64\debug\bin\libbz2.pdb };
+			lib: { .\output\v100\x64\debug\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v100\x64\debug\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v100\x64\debug\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 		
 		[Win32,v100,static,cdecl,debug] {
-			lib: { ..\output\v100\win32\debug\lib\libbz2-static.lib };
+			lib: { .\output\v100\win32\debug\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[x64,v100,static,cdecl,debug] {
-			lib: { ..\output\v100\x64\debug\lib\libbz2-static.lib };
+			lib: { .\output\v100\x64\debug\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[Win32,v100,static,stdcall,debug] {
-			lib: { ..\output\v100\win32\debug\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v100\win32\debug\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[x64,v100,static,stdcall,debug] {
-			lib: { ..\output\v100\x64\debug\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v100\x64\debug\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[Win32,v100,dynamic,stdcall,debug] {
-			lib: { ..\output\v100\win32\debug\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v100\win32\debug\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v100\win32\debug\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v100\win32\debug\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v100\win32\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v100\win32\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 		[x64,v100,dynamic,stdcall,debug] {
-			lib: { ..\output\v100\x64\debug\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v100\x64\debug\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v100\x64\debug\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v100\x64\debug\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v100\x64\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v100\x64\debug\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 		[Win32,v110,dynamic,cdecl,release] { 
-			lib: { ..\output\v110\win32\release\lib\libbz2.lib };
-			bin: { ..\output\v110\win32\release\bin\libbz2.dll };
-            symbols += { ..\output\v110\win32\release\bin\libbz2.pdb };
+			lib: { .\output\v110\win32\release\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v110\win32\release\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v110\win32\release\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 
 		[x64,v110,dynamic,cdecl,release] {
-			lib: { ..\output\v110\x64\release\lib\libbz2.lib };
-			bin: { ..\output\v110\x64\release\bin\libbz2.dll };
-            symbols += { ..\output\v110\x64\release\bin\libbz2.pdb };
+			lib: { .\output\v110\x64\release\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v110\x64\release\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v110\x64\release\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 		
 		[Win32,v110,static,cdecl,release] {
-			lib: { ..\output\v110\win32\release\lib\libbz2-static.lib };
+			lib: { .\output\v110\win32\release\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[x64,v110,static,cdecl,release] {
-			lib: { ..\output\v110\x64\release\lib\libbz2-static.lib };
+			lib: { .\output\v110\x64\release\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[Win32,v110,static,stdcall,release] {
-			lib: { ..\output\v110\win32\release\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v110\win32\release\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[x64,v110,static,stdcall,release] {
-			lib: { ..\output\v110\x64\release\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v110\x64\release\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[Win32,v110,dynamic,stdcall,release] {
-			lib: { ..\output\v110\win32\release\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v110\win32\release\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v110\win32\release\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v110\win32\release\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v110\win32\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v110\win32\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 		[x64,v110,dynamic,stdcall,release] {
-			lib: { ..\output\v110\x64\release\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v110\x64\release\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v110\x64\release\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v110\x64\release\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v110\x64\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v110\x64\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 		[Win32,v100,dynamic,cdecl,release] { 
-			lib: { ..\output\v100\win32\release\lib\libbz2.lib };
-			bin: { ..\output\v100\win32\release\bin\libbz2.dll };
-            symbols += { ..\output\v100\win32\release\bin\libbz2.pdb };
+			lib: { .\output\v100\win32\release\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v100\win32\release\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v100\win32\release\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 
 		[x64,v100,dynamic,cdecl,release] {
-			lib: { ..\output\v100\x64\release\lib\libbz2.lib };
-			bin: { ..\output\v100\x64\release\bin\libbz2.dll };
-            symbols += { ..\output\v100\x64\release\bin\libbz2.pdb };
+			lib: { .\output\v100\x64\release\DynamicLibrary\cdecl\lib\libbz2.lib };
+			bin: { .\output\v100\x64\release\DynamicLibrary\cdecl\bin\libbz2.dll };
+            symbols += { .\output\v100\x64\release\DynamicLibrary\cdecl\bin\libbz2.pdb };
 		}
 		
 		[Win32,v100,static,cdecl,release] {
-			lib: { ..\output\v100\win32\release\lib\libbz2-static.lib };
+			lib: { .\output\v100\win32\release\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[x64,v100,static,cdecl,release] {
-			lib: { ..\output\v100\x64\release\lib\libbz2-static.lib };
+			lib: { .\output\v100\x64\release\StaticLibrary\cdecl\lib\libbz2-static.lib };
 		}
 
 		[Win32,v100,static,stdcall,release] {
-			lib: { ..\output\v100\win32\release\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v100\win32\release\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[x64,v100,static,stdcall,release] {
-			lib: { ..\output\v100\x64\release\lib\libbz2-static-stdcall.lib };
+			lib: { .\output\v100\x64\release\StaticLibrary\stdcall\lib\libbz2-static-stdcall.lib };
 		}
 
 		[Win32,v100,dynamic,stdcall,release] {
-			lib: { ..\output\v100\win32\release\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v100\win32\release\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v100\win32\release\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v100\win32\release\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v100\win32\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v100\win32\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 		[x64,v100,dynamic,stdcall,release] {
-			lib: { ..\output\v100\x64\release\lib\libbz2-stdcall.lib };
-			bin: { ..\output\v100\x64\release\bin\libbz2-stdcall.dll };
-            symbols += { ..\output\v100\x64\release\bin\libbz2-stdcall.pdb };
+			lib: { .\output\v100\x64\release\DynamicLibrary\stdcall\lib\libbz2-stdcall.lib };
+			bin: { .\output\v100\x64\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.dll };
+            symbols += { .\output\v100\x64\release\DynamicLibrary\stdcall\bin\libbz2-stdcall.pdb };
 		}
 
 
