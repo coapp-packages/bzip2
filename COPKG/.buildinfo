@@ -1,59 +1,31 @@
-@import "version.inc";
+@import default_tools;
 
-#product-info
-{
-	product-name: "bzip2";
-	version: "1.0.6";
-	original-source-location: "http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz";
-	original-source-website: "http://www.bzip.org/";
-	license: "BSD-style (custom, see LICENSE)";
-	packager: "Philip Allison <mangobrain@googlemail.com>";
-}
+default {
 
-x86
-{
-	targets:
-	{
-		"bzip2.exe",
-		"bzip2recover.exe",
-		"libbz2.lib",
-		"libbz2.dll"
+	("v110, v100", "Win32, x64", "Debug,Release", "Dynamic, Static, ltcg", "cdecl,stdcall") => {
+		.PushEnvironment {};
+		.LoadSystemEnvironment {};
+        .SetEnvironmentFromTarget.Target = "VC_${0}_${1}";
+		.Message.Text = @"
+
+
+        Env:        ${0}-${1}  :  ${2}  ${3}  ${4}
+        EnvExists:  $(IsEnvironmentValid)";
+        
+        .Exec {
+            Condition="$(IsEnvironmentValid)";
+            Command = @"msbuild $(MSBuildThisFileDirectory)bzip.vcxproj /p:PlatformToolset=${0};Platform=${1};Configuration=${2};UsesConfigurationType=${3};CallingConvention=${4}";
+        };
+        
+        .PopEnvironment{};
 	};
+	
+};
 
-	build-command:
-	@"
-		nmake -f makefile.msc || goto failed
-	";
+clean {
+    .RemoveDir.Directories = @"$(MSBuildThisFileDirectory).\intermediate";
+};
 
-	clean-command:
-	@"
-		nmake -f makefile.msc clean
-	";
-}
-
-test
-{
-	uses: x86;
-	/* Tests are run as part of nmake all in 'x86'. */
-}
-
-package
-{
-	uses: x86;
-
-	targets:
-	{
-        @"COPKG\libbz2[vc10]-${package-version}-x86.msi",
-        @"COPKG\libbz2-dev[vc10]-${package-version}-x86.msi",
-        @"COPKG\libbz2-dev-common-${package-version}-any.msi",
-        @"COPKG\bzip2-${package-version}-x86.msi",
-	};
-
-	build-command: @"
-		cd COPKG
-		autopackage libbz2.autopkg libbz2-dev-common.autopkg|| goto failed
-        autopackage bzip2.autopkg libbz2-dev.autopkg || goto failed
-	";
-
-	clean-command: @"del COPKG\*.msi COPKG\*.wixpdb";
-}
+nuke {
+    .RemoveDir.Directories = @"$(MSBuildThisFileDirectory).\output";
+};
